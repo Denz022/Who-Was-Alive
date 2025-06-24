@@ -32,17 +32,16 @@ const people = [
 ];
 
 const yearInput = document.getElementById("yearInput");
-const checkBtn = document.getElementById("checkBtn");
 const resultsDiv = document.getElementById("results");
 
-checkBtn.addEventListener("click", () => {
+function updateResults() {
   const year = parseInt(yearInput.value);
   if (isNaN(year)) {
     resultsDiv.innerHTML = "<p>Kérlek, írj be egy érvényes évszámot!</p>";
     return;
   }
 
-  const alivePeople = people.filter(p => p.birthYear <= year && p.deathYear > year);
+  const alivePeople = people.filter(p => p.birthYear <= year && p.deathYear >= year);
 
   if (alivePeople.length === 0) {
     resultsDiv.innerHTML = `<p>Ebben az évben nem éltek a listán szereplő személyek.</p>`;
@@ -51,14 +50,30 @@ checkBtn.addEventListener("click", () => {
 
   let html = `<p>Ebben az évben életben lévő személyek (${year}):</p><ul>`;
   alivePeople.forEach(p => {
-    const age = year - p.birthYear;
+    let status = "";
+    if (year === p.birthYear) {
+      status = "megszületett";
+    } else if (year === p.deathYear) {
+      const age = p.deathYear - p.birthYear;
+      status = `elhunyt ${age} évesen`;
+    } else {
+      const age = year - p.birthYear;
+      status = `${age} éves`;
+    }
+
     html += `
       <li>
         <img src="${p.imageUrl}" alt="${p.name}" />
-        <strong>${p.name}</strong> — ${age} éves
+        <strong>${p.name}</strong> — ${status}
       </li>`;
   });
   html += "</ul>";
 
   resultsDiv.innerHTML = html;
-});
+}
+
+// Frissítés gépeléskor
+yearInput.addEventListener("input", updateResults);
+
+// Ha az oldal betöltésekor már van érték, mutassuk az eredményt is
+window.addEventListener("load", updateResults);
