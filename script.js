@@ -45,7 +45,31 @@ const people = [
     name: "Gerd Müller",
     birth: 1945,
     death: 2021,
-    image: "kepek/anna_kovacs.jpg"
+    image: "kepek/gerd.jpg"
+  },
+  {
+    name: "Michael Jackson",
+    birth: 1958,
+    death: 2009,
+    image: "kepek/mj.jpg"
+  },
+  {
+    name: "Elvis Presley",
+    birth: 1935,
+    death: 1977,
+    image: "kepek/elvis.jpg"
+  },
+  {
+    name: "Marilyn Monroe",
+    birth: 1926,
+    death: 1962,
+    image: "kepek/monroe.jpg"
+  },
+  {
+    name: "Frank Sinatra",
+    birth: 1915,
+    death: 1998,
+    image: "kepek/sinatra.jpg"
   },
   {
     name: "Anna Kovács",
