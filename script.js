@@ -14,14 +14,15 @@ const people = [
   {
     name: "Cristiano Ronaldo",
     birth: 1985,
-    death: 2026, // Jelzés arra, hogy még él vagy ismeretlen halálozás
+    death: 2026,
     image: "kepek/cr7.jpg"
   },
   {
     name: "Anna Kovács",
-    birth: 1990,
-    death: 3000, // Jelzés arra, hogy még él vagy ismeretlen halálozás
+    birth: 2025,
+    death: 3000,
     image: "kepek/anna_kovacs.jpg"
+  }
 ];
 
 const resultsDiv = document.getElementById('results');
@@ -58,7 +59,6 @@ yearInput.addEventListener('input', () => {
     let ageText = '';
     const currentYear = new Date().getFullYear();
 
-    // Ha az adott év nagyobb vagy egyenlő a halálozási évnél és az halálozási év a jelenleginél nagyobb (jövőbeli vagy ismeretlen)
     if (year >= person.death && person.death > currentYear) {
       ageText = 'Életben van';
     } else if (year === person.birth) {
@@ -81,4 +81,5 @@ yearInput.addEventListener('input', () => {
     resultsDiv.appendChild(card);
   });
 });
+
 
