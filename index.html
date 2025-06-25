@@ -63,6 +63,8 @@
     .card > div {
       font-size: 20px;
       margin-bottom: 6px;
+      color: #cc4444; /* világosabb piros, jól olvasható */
+      font-weight: 600;
     }
   </style>
 </head>
@@ -92,7 +94,7 @@
       resultsDiv.innerHTML = ''; // Töröljük az előző eredményeket
 
       if (!yearStr || isNaN(year)) {
-        return;
+        return; // Üres vagy nem szám esetén semmi nem jelenik meg
       }
 
       const alivePeople = people.filter(person => {
@@ -100,7 +102,7 @@
       });
 
       if (alivePeople.length === 0) {
-        resultsDiv.innerHTML = '<p style="color: white; font-size: 18px; text-align: center; width: 100%;">Nincs találat az adott évre.</p>';
+        // Nem jelenítünk meg semmit, ha nincs találat
         return;
       }
 
@@ -138,3 +140,4 @@
   </script>
 </body>
 </html>
+
