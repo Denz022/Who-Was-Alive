@@ -7,18 +7,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
   <style>
     body {
-      margin: 0; padding: 0; height: 100vh;
+      margin: 0; 
+      padding: 0;
+      min-height: 100vh;
+      background-image: url('kepek/background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: 'Playfair Display', serif;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      background-color: #f4f4f4;
-      font-family: 'Playfair Display', serif;
     }
     h1 {
-      font-size: 48px;
-      color: #333;
-      margin-bottom: 20px;
+      font-size: 72px;  /* nagyobb méret */
+      color: #fff;      /* fehér szín, hogy jól látszódjon a háttéren */
+      margin: 40px 0 20px 0;
+      text-align: center;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+      width: 100%;
     }
     input[type="text"] {
       width: 200px;
@@ -28,6 +35,7 @@
       border: 2px solid #333;
       border-radius: 5px;
       box-sizing: border-box;
+      margin-bottom: 40px;
     }
   </style>
 </head>
