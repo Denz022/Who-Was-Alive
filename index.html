@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Who Was Alive</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet" />
+  <!-- Betűtípus: Roboto (modern, könnyen olvasható) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
   <style>
     body {
       margin: 0;
@@ -14,7 +15,7 @@
       background-repeat: repeat;
       background-position: top left;
       background-size: auto;
-      font-family: 'Playfair Display', serif;
+      font-family: 'Roboto', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -63,7 +64,7 @@
     .card > div {
       font-size: 20px;
       margin-bottom: 6px;
-      color: #cc4444; /* világosabb piros, jól olvasható */
+      color: black; /* vissza fekete */
       font-weight: 600;
     }
   </style>
@@ -74,70 +75,8 @@
 
   <div class="container" id="results"></div>
 
-  <script>
-    const people = [
-      { name: "Leonardo da Vinci", birth: 1452, death: 1519, image: "kepek/leonardo.jpg" },
-      { name: "Albert Einstein", birth: 1879, death: 1955, image: "kepek/einstein.jpg" },
-      { name: "Cleopatra", birth: -69, death: -30, image: "kepek/cleopatra.jpg" },
-      { name: "Marie Curie", birth: 1867, death: 1934, image: "kepek/curie.jpg" },
-      { name: "Nikola Tesla", birth: 1856, death: 1943, image: "kepek/tesla.jpg" },
-      // további személyek...
-    ];
-
-    const resultsDiv = document.getElementById('results');
-    const yearInput = document.getElementById('yearInput');
-
-    yearInput.addEventListener('input', () => {
-      const yearStr = yearInput.value.trim();
-      const year = parseInt(yearStr, 10);
-
-      resultsDiv.innerHTML = ''; // Töröljük az előző eredményeket
-
-      if (!yearStr || isNaN(year)) {
-        return; // Üres vagy nem szám esetén semmi nem jelenik meg
-      }
-
-      const alivePeople = people.filter(person => {
-        return person.birth <= year && person.death >= year;
-      });
-
-      if (alivePeople.length === 0) {
-        // Nem jelenítünk meg semmit, ha nincs találat
-        return;
-      }
-
-      alivePeople.forEach(person => {
-        const card = document.createElement('div');
-        card.className = 'card';
-
-        const img = document.createElement('img');
-        img.src = person.image;
-        img.alt = person.name;
-
-        const nameEl = document.createElement('div');
-        nameEl.textContent = person.name;
-
-        let ageText = '';
-        if (year === person.birth) {
-          ageText = 'Megszületett';
-        } else {
-          ageText = `${year - person.birth} éves`;
-        }
-        if (year === person.death) {
-          ageText += ' (Elhunyt)';
-        }
-
-        const ageEl = document.createElement('div');
-        ageEl.textContent = ageText;
-
-        card.appendChild(img);
-        card.appendChild(nameEl);
-        card.appendChild(ageEl);
-
-        resultsDiv.appendChild(card);
-      });
-    });
-  </script>
+  <!-- Külső JavaScript -->
+  <script src="script.js"></script>
 </body>
 </html>
 
