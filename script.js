@@ -6,17 +6,22 @@ const people = [
     image: "kepek/en.jpg"
   },
   {
-    name: "Jane Smith",
-    birth: 1920,
-    death: 1980,
-    image: "kepek/jane_smith.jpg"
+    name: "Franck Ribéry",
+    birth: 1983,
+    death: 2026,
+    image: "kepek/ribery.jpg"
+  },
+  {
+    name: "Cristiano Ronaldo",
+    birth: 1985,
+    death: 2026, // Jelzés arra, hogy még él vagy ismeretlen halálozás
+    image: "kepek/cr7.jpg"
   },
   {
     name: "Anna Kovács",
     birth: 1990,
     death: 3000, // Jelzés arra, hogy még él vagy ismeretlen halálozás
     image: "kepek/anna_kovacs.jpg"
-  }
 ];
 
 const resultsDiv = document.getElementById('results');
