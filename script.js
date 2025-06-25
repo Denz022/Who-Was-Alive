@@ -99,41 +99,44 @@ yearInput.addEventListener('input', () => {
     return;
   }
 
-  alivePeople.forEach(person => {
-    const card = document.createElement('div');
-    card.className = 'card';
+  [...alivePeople]
+    .sort((a, b) => a.birth - b.birth)
+    .forEach(person => {
+      const card = document.createElement('div');
+      card.className = 'card';
 
-    const img = document.createElement('img');
-    img.src = person.image;
-    img.alt = person.name;
+      const img = document.createElement('img');
+      img.src = person.image;
+      img.alt = person.name;
 
-    const nameEl = document.createElement('div');
-    nameEl.textContent = person.name;
+      const nameEl = document.createElement('div');
+      nameEl.textContent = person.name;
 
-    let ageText = '';
-    const currentYear = new Date().getFullYear();
+      let ageText = '';
+      const currentYear = new Date().getFullYear();
 
-    if (year >= person.death && person.death > currentYear) {
-      ageText = 'Életben van';
-    } else if (year === person.birth) {
-      ageText = 'Megszületett';
-    } else {
-      ageText = `${year - person.birth} éves`;
-    }
+      if (year >= person.death && person.death > currentYear) {
+        ageText = 'Életben van';
+      } else if (year === person.birth) {
+        ageText = 'Megszületett';
+      } else {
+        ageText = `${year - person.birth} éves`;
+      }
 
-    if (year === person.death && person.death <= currentYear) {
-      ageText += ' (Elhunyt)';
-    }
+      if (year === person.death && person.death <= currentYear) {
+        ageText += ' (Elhunyt)';
+      }
 
-    const ageEl = document.createElement('div');
-    ageEl.textContent = ageText;
+      const ageEl = document.createElement('div');
+      ageEl.textContent = ageText;
 
-    card.appendChild(img);
-    card.appendChild(nameEl);
-    card.appendChild(ageEl);
+      card.appendChild(img);
+      card.appendChild(nameEl);
+      card.appendChild(ageEl);
 
-    resultsDiv.appendChild(card);
-  });
+      resultsDiv.appendChild(card);
+    });
 });
+
 
 
