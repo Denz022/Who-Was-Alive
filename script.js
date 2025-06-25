@@ -18,6 +18,36 @@ const people = [
     image: "kepek/cr7.jpg"
   },
   {
+    name: "Lionel Messi",
+    birth: 1987,
+    death: 2026,
+    image: "kepek/messi.jpg"
+  },
+  {
+    name: "Puskás Ferenc",
+    birth: 1927,
+    death: 2006,
+    image: "kepek/puskas.jpg"
+  },
+  {
+    name: "Diego Maradona",
+    birth: 1960,
+    death: 2020,
+    image: "kepek/maradona.jpg"
+  },
+  {
+    name: "Pelé",
+    birth: 1940,
+    death: 2022,
+    image: "kepek/pele.jpg"
+  },
+  {
+    name: "Gerd Müller",
+    birth: 1945,
+    death: 2021,
+    image: "kepek/anna_kovacs.jpg"
+  },
+  {
     name: "Anna Kovács",
     birth: 2025,
     death: 3000,
