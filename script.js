@@ -1,79 +1,79 @@
 const people = [
   {
-    name: "Leonardo da Vinci",
-    birthYear: 1452,
-    deathYear: 1519,
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Leonardo_da_Vinci_-_presumed_self-portrait_-_WGA12798.jpg/220px-Leonardo_da_Vinci_-_presumed_self-portrait_-_WGA12798.jpg"
+    name: "Dénes",
+    birth: 2002,
+    death: 2026,
+    image: "kepek/en.jpg"
   },
   {
-    name: "Galileo Galilei",
-    birthYear: 1564,
-    deathYear: 1642,
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Galileo_Galilei_2.jpg/220px-Galileo_Galilei_2.jpg"
+    name: "Jane Smith",
+    birth: 1920,
+    death: 1980,
+    image: "kepek/jane_smith.jpg"
   },
   {
-    name: "Isaac Newton",
-    birthYear: 1643,
-    deathYear: 1727,
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Sir_Isaac_Newton_%281643-1727%29.jpg/220px-Sir_Isaac_Newton_%281643-1727%29.jpg"
-  },
-  {
-    name: "Albert Einstein",
-    birthYear: 1879,
-    deathYear: 1955,
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Albert_Einstein_Head.jpg/220px-Albert_Einstein_Head.jpg"
-  },
-  {
-    name: "Marie Curie",
-    birthYear: 1867,
-    deathYear: 1934,
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Marie_Curie_c1920.jpg/220px-Marie_Curie_c1920.jpg"
+    name: "Anna Kovács",
+    birth: 1990,
+    death: 3000, // Jelzés arra, hogy még él vagy ismeretlen halálozás
+    image: "kepek/anna_kovacs.jpg"
   }
 ];
 
-const yearInput = document.getElementById("yearInput");
-const resultsDiv = document.getElementById("results");
+const resultsDiv = document.getElementById('results');
+const yearInput = document.getElementById('yearInput');
 
-function updateResults() {
-  const year = parseInt(yearInput.value);
-  if (isNaN(year)) {
-    resultsDiv.innerHTML = "<p>Kérlek, írj be egy érvényes évszámot!</p>";
+yearInput.addEventListener('input', () => {
+  const yearStr = yearInput.value.trim();
+  const year = parseInt(yearStr, 10);
+  resultsDiv.innerHTML = '';
+
+  if (!yearStr || isNaN(year)) {
     return;
   }
 
-  const alivePeople = people.filter(p => p.birthYear <= year && p.deathYear >= year);
+  const alivePeople = people.filter(person => {
+    return person.birth <= year && person.death >= year;
+  });
 
   if (alivePeople.length === 0) {
-    resultsDiv.innerHTML = `<p>Ebben az évben nem éltek a listán szereplő személyek.</p>`;
     return;
   }
 
-  let html = `<p>Ebben az évben életben lévő személyek (${year}):</p><ul>`;
-  alivePeople.forEach(p => {
-    let status = "";
-    if (year === p.birthYear) {
-      status = "megszületett";
-    } else if (year === p.deathYear) {
-      const age = p.deathYear - p.birthYear;
-      status = `elhunyt ${age} évesen`;
+  alivePeople.forEach(person => {
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    const img = document.createElement('img');
+    img.src = person.image;
+    img.alt = person.name;
+
+    const nameEl = document.createElement('div');
+    nameEl.textContent = person.name;
+
+    let ageText = '';
+    const currentYear = new Date().getFullYear();
+
+    // Ha az adott év nagyobb vagy egyenlő a halálozási évnél és az halálozási év a jelenleginél nagyobb (jövőbeli vagy ismeretlen)
+    if (year >= person.death && person.death > currentYear) {
+      ageText = 'Életben van';
+    } else if (year === person.birth) {
+      ageText = 'Megszületett';
     } else {
-      const age = year - p.birthYear;
-      status = `${age} éves`;
+      ageText = `${year - person.birth} éves`;
     }
 
-    html += `
-      <li>
-        <img src="${p.imageUrl}" alt="${p.name}" />
-        <strong>${p.name}</strong> — ${status}
-      </li>`;
+    if (year === person.death && person.death <= currentYear) {
+      ageText += ' (Elhunyt)';
+    }
+
+    const ageEl = document.createElement('div');
+    ageEl.textContent = ageText;
+
+    card.appendChild(img);
+    card.appendChild(nameEl);
+    card.appendChild(ageEl);
+
+    resultsDiv.appendChild(card);
   });
-  html += "</ul>";
+});
 
-  resultsDiv.innerHTML = html;
-}
-
-// Frissítés gépeléskor
-yearInput.addEventListener("input", updateResults);
-
-// Ha az oldal betöltésekor már van érték, mutassuk az eredményt is
-window.addEventListener("load", updateResults);
