@@ -64,7 +64,7 @@
 </head>
 <body>
   <h1>Who Was Alive</h1>
-  <input type="text" id="yearInput" placeholder="Írd be az évet..." />
+  <input type="text" id="yearInput" placeholder="" />
 
   <div class="container" id="results"></div>
 
@@ -72,7 +72,7 @@
     const people = [
       { name: "Leonardo da Vinci", birth: 1452, death: 1519, image: "kepek/leonardo.jpg" },
       { name: "Albert Einstein", birth: 1879, death: 1955, image: "kepek/einstein.jpg" },
-      { name: "Cleopatra", birth: -69, death: -30, image: "kepek/cleopatra.jpg" }, // Kr.e. évek
+      { name: "Cleopatra", birth: -69, death: -30, image: "kepek/cleopatra.jpg" },
       { name: "Marie Curie", birth: 1867, death: 1934, image: "kepek/curie.jpg" },
       { name: "Nikola Tesla", birth: 1856, death: 1943, image: "kepek/tesla.jpg" },
       // további személyek...
@@ -88,11 +88,9 @@
       resultsDiv.innerHTML = ''; // Töröljük az előző eredményeket
 
       if (!yearStr || isNaN(year)) {
-        // Üres vagy nem szám - nem jelenítünk meg semmit
         return;
       }
 
-      // Szűrjük azokat, akik az adott évben éltek
       const alivePeople = people.filter(person => {
         return person.birth <= year && person.death >= year;
       });
@@ -102,7 +100,6 @@
         return;
       }
 
-      // Megjelenítjük a találatokat
       alivePeople.forEach(person => {
         const card = document.createElement('div');
         card.className = 'card';
@@ -114,9 +111,18 @@
         const nameEl = document.createElement('div');
         nameEl.textContent = person.name;
 
-        const age = year - person.birth;
+        let ageText = '';
+        if (year === person.birth) {
+          ageText = 'Megszületett';
+        } else {
+          ageText = `Életkor: ${year - person.birth} év`;
+        }
+        if (year === person.death) {
+          ageText += ' (Elhunyt)';
+        }
+
         const ageEl = document.createElement('div');
-        ageEl.textContent = `Életkor: ${age} év`;
+        ageEl.textContent = ageText;
 
         card.appendChild(img);
         card.appendChild(nameEl);
@@ -128,4 +134,5 @@
   </script>
 </body>
 </html>
+
 
