@@ -100,7 +100,11 @@ yearInput.addEventListener('input', () => {
   }
 
   [...alivePeople]
-    .sort((a, b) => a.birth - b.birth)
+    .sort((a, b) => {
+      if (a.birth === year && b.birth !== year) return -1;
+      if (b.birth === year && a.birth !== year) return 1;
+      return a.birth - b.birth;
+    })
     .forEach(person => {
       const card = document.createElement('div');
       card.className = 'card';
@@ -137,6 +141,7 @@ yearInput.addEventListener('input', () => {
       resultsDiv.appendChild(card);
     });
 });
+
 
 
 
