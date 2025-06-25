@@ -4,24 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Who Was Alive</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet" />
   <style>
     body {
-      margin: 0; 
+      margin: 0;
       padding: 0;
       min-height: 100vh;
       background-image: url('kepek/background.jpg');
-      background-repeat: repeat;  /* ismétlődő mintázat */
+      background-repeat: repeat;
       background-position: top left;
-      background-size: auto; /* ne nagyítsa fel */
+      background-size: auto;
       font-family: 'Playfair Display', serif;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
     h1 {
-      font-size: 72px;  
-      color: #fff;      
+      font-size: 72px;
+      color: #fff;
       margin: 40px 0 20px 0;
       text-align: center;
       text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
@@ -37,11 +37,95 @@
       box-sizing: border-box;
       margin-bottom: 40px;
     }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      width: 90%;
+      max-width: 1000px;
+      margin-bottom: 40px;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      width: 150px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      text-align: center;
+      font-size: 16px;
+    }
+    .card img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
   <h1>Who Was Alive</h1>
-  <input type="text" placeholder="" />
+  <input type="text" id="yearInput" placeholder="Írd be az évet..." />
+
+  <div class="container" id="results"></div>
+
+  <script>
+    const people = [
+      { name: "Leonardo da Vinci", birth: 1452, death: 1519, image: "kepek/leonardo.jpg" },
+      { name: "Albert Einstein", birth: 1879, death: 1955, image: "kepek/einstein.jpg" },
+      { name: "Cleopatra", birth: -69, death: -30, image: "kepek/cleopatra.jpg" }, // Kr.e. évek
+      { name: "Marie Curie", birth: 1867, death: 1934, image: "kepek/curie.jpg" },
+      { name: "Nikola Tesla", birth: 1856, death: 1943, image: "kepek/tesla.jpg" },
+      // további személyek...
+    ];
+
+    const resultsDiv = document.getElementById('results');
+    const yearInput = document.getElementById('yearInput');
+
+    yearInput.addEventListener('input', () => {
+      const yearStr = yearInput.value.trim();
+      const year = parseInt(yearStr, 10);
+
+      resultsDiv.innerHTML = ''; // Töröljük az előző eredményeket
+
+      if (!yearStr || isNaN(year)) {
+        // Üres vagy nem szám - nem jelenítünk meg semmit
+        return;
+      }
+
+      // Szűrjük azokat, akik az adott évben éltek
+      const alivePeople = people.filter(person => {
+        return person.birth <= year && person.death >= year;
+      });
+
+      if (alivePeople.length === 0) {
+        resultsDiv.innerHTML = '<p style="color: white; font-size: 18px; text-align: center; width: 100%;">Nincs találat az adott évre.</p>';
+        return;
+      }
+
+      // Megjelenítjük a találatokat
+      alivePeople.forEach(person => {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        const img = document.createElement('img');
+        img.src = person.image;
+        img.alt = person.name;
+
+        const nameEl = document.createElement('div');
+        nameEl.textContent = person.name;
+
+        const age = year - person.birth;
+        const ageEl = document.createElement('div');
+        ageEl.textContent = `Életkor: ${age} év`;
+
+        card.appendChild(img);
+        card.appendChild(nameEl);
+        card.appendChild(ageEl);
+
+        resultsDiv.appendChild(card);
+      });
+    });
+  </script>
 </body>
 </html>
 
